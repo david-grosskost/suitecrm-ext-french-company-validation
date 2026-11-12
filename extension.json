@@ -1,7 +1,7 @@
 {
-    "slug": "exemple",
-    "name": "Exemple",
-    "description": "Extension d'exemple du modèle : à remplacer par ce que fait votre extension, en mots métier.",
-    "types": ["logic-hook"],
+    "slug": "french-company-validation",
+    "name": "Contrôles des entreprises françaises",
+    "description": "Vérifie le SIRET et le code NAF des comptes : 14 chiffres et clé de contrôle valide pour le SIRET, bon format pour le code NAF ; nettoie la saisie (espaces, points). Nécessite l'extension french-company-fields.",
+    "types": ["logic-hook", "fields", "lang"],
     "suitecrm": ">=8.10 <9"
 }

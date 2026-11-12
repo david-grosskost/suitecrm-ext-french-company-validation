@@ -12,7 +12,8 @@
     "autoload-dev": {
         "classmap": ["legacy/include/"],
         "psr-4": {
-            "SuiteCrmExt\\Exemple\\Tests\\": "tests/"
+            "App\\Extension\\FrenchCompanyValidation\\backend\\": "backend/",
+            "SuiteCrmExt\\FrenchCompanyValidation\\Tests\\": "tests/"
         }
     },
     "repositories": [

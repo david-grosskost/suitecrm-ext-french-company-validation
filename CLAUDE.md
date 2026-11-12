@@ -24,6 +24,7 @@ n'est pas installé, demande à la personne de l'installer (Claude Code :
 - **Tout passe par une pull request relue par un humain** : jamais de push sur `main`,
   jamais de merge sans relecture.
 - **Aucun secret** dans le code, les tests, les commits ou la conversation.
+- Nom de l'extension (slug, dépôt, paquet) **en anglais uniquement** (`french-company-fields`, pas `pack-entreprise-fr`).
 - Code, commentaires et messages de commit **en anglais** (Conventional Commits :
   `feat: …`, `fix: …`) ; libellés et textes visibles par l'utilisateur **en français**.
 
@@ -33,8 +34,9 @@ n'est pas installé, demande à la personne de l'installer (Claude Code :
 |---|---|---|
 | `legacy/Extension/…` | `public/legacy/custom/Extension/…` | déclarations (hooks, champs, libellés), assemblées au Quick Repair ; le slug dans chaque nom de fichier |
 | `legacy/include/<slug>/` | `public/legacy/custom/include/<slug>/` | les classes PHP : toute la logique, testée sans SuiteCRM |
-| `backend/`, `config/` | `extensions/<slug>/` | la couche SuiteCRM 8 (Symfony) |
-| `database/seeders/` | — | données de démo |
+| `backend/`, `config/` | `extensions/<Slug>/` (slug en PascalCase) | la couche SuiteCRM 8 (Symfony) : classes `App\Extension\<Slug>\backend\…`, services dans `config/services/<slug>.yaml` |
+| `database/install.php`, `database/uninstall.php` | — (lancés par le core) | ce qui se fait une fois dans SuiteCRM à la première activation (ex. un panneau dans une mise en page de Studio), et se défait à la désactivation |
+| `database/seeders/<slug>/` | — | données de démo (`make db@seed` du core, extension active) |
 | `tests/` | — | tests unitaires (PHPUnit) |
 
 ## Commandes (Docker suffit, pas besoin de PHP)
