@@ -1,0 +1,92 @@
+<?php
+
+// Signatures of what the extension uses besides suitecrm-devkit's stub, for
+// PHPStan only (SuiteCRM is not installed here): the SuiteCRM 8 process
+// handlers (core/backend, SuiteCRM 8.10.2) and a legacy function.
+
+namespace {
+    /** @return mixed The label, or the key when there is none */
+    function translate(string $string, string $mod = '', string $selectedValue = '')
+    {
+    }
+}
+
+namespace App\Process\Entity {
+    class Process
+    {
+        public function setId(?string $id): self
+        {
+        }
+
+        public function setStatus(?string $status): self
+        {
+        }
+
+        public function setAsync(?bool $async): self
+        {
+        }
+
+        /** @return array<mixed>|null */
+        public function getOptions(): ?array
+        {
+        }
+
+        /** @param array<mixed>|null $data */
+        public function setData(?array $data): self
+        {
+        }
+    }
+}
+
+namespace App\Process\Service {
+    use App\Process\Entity\Process;
+
+    interface ProcessHandlerInterface
+    {
+        public function getProcessType(): string;
+
+        public function requiredAuthRole(): string;
+
+        /** @return array<string, list<array<string, string>>> */
+        public function getRequiredACLs(Process $process): array;
+
+        public function configure(Process $process): void;
+
+        public function validate(Process $process): void;
+
+        /** @return mixed */
+        public function run(Process $process);
+    }
+}
+
+namespace App\FieldDefinitions\Entity {
+    class FieldDefinition
+    {
+        public function getId(): string
+        {
+        }
+
+        /** @return array<mixed>|null */
+        public function getVardef(): ?array
+        {
+        }
+
+        /** @param array<mixed> $vardef */
+        public function setVardef(array $vardef): void
+        {
+        }
+    }
+}
+
+namespace App\FieldDefinitions\LegacyHandler {
+    use App\FieldDefinitions\Entity\FieldDefinition;
+
+    interface FieldDefinitionMapperInterface
+    {
+        public function getKey(): string;
+
+        public function getModule(): string;
+
+        public function map(FieldDefinition $definition): void;
+    }
+}
