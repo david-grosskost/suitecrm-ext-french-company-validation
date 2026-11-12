@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DefinitionsTest extends TestCase
 {
-    private const string LEGACY = __DIR__ . '/../legacy/Extension/modules/Accounts/Ext';
+    private const string LEGACY = __DIR__ . '/../legacy/Extension';
     private const array ERRORS = ['LBL_FCV_SIRET_FORMAT', 'LBL_FCV_SIRET_KEY', 'LBL_FCV_NAF_FORMAT'];
 
     /**
@@ -23,16 +23,16 @@ final class DefinitionsTest extends TestCase
      */
     private static function load(string $file, string $variable): array
     {
-        $mod_strings = $hook_array = [];
+        $app_strings = $hook_array = [];
         require self::LEGACY . '/' . $file;
-        $values = compact('mod_strings', 'hook_array');
+        $values = compact('app_strings', 'hook_array');
 
         return is_array($values[$variable] ?? null) ? $values[$variable] : [];
     }
 
     public function testTheHookRunsBeforeTheSave(): void
     {
-        $hooks = self::load('LogicHooks/french-company-validation.php', 'hook_array');
+        $hooks = self::load('modules/Accounts/Ext/LogicHooks/french-company-validation.php', 'hook_array');
 
         self::assertIsArray($hooks['before_save'] ?? null);
         self::assertSame(
@@ -54,7 +54,7 @@ final class DefinitionsTest extends TestCase
     #[DataProvider('languages')]
     public function testEveryMessageIsTranslated(string $language): void
     {
-        $labels = self::load('Language/' . $language . '.french-company-validation.php', 'mod_strings');
+        $labels = self::load('application/Ext/Language/' . $language . '.french-company-validation.php', 'app_strings');
 
         foreach (self::ERRORS as $key) {
             self::assertNotEmpty($labels[$key] ?? null, "$key manquant en $language");
