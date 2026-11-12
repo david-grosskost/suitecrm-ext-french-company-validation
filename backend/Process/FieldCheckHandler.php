@@ -54,9 +54,7 @@ final class FieldCheckHandler implements ProcessHandlerInterface
         // The rules live in the legacy layer, shared with the hook:
         // extensions/<Slug>/backend/Process → the root of the application.
         $rules = \dirname(__DIR__, 4) . '/public/legacy/custom/include/french-company-validation';
-        foreach (['Siret', 'NafCode', 'AccountCheck'] as $class) {
-            require_once "{$rules}/{$class}.php";
-        }
+        require_once "{$rules}/AccountCheck.php";
         $errors = ($params['check'] ?? '') === 'naf'
             ? AccountCheck::errors('', NafCode::clean($value))
             : AccountCheck::errors(Siret::clean($value), '');

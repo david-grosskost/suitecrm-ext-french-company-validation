@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace SuiteCrmExt\FrenchCompanyValidation;
 
+// SuiteCRM loads only this file for the hook: the rules it applies come along.
+require_once __DIR__ . '/Siret.php';
+require_once __DIR__ . '/NafCode.php';
+
 /**
  * Before an account is saved, whatever saves it (record view, import, API,
  * workflow): the SIRET and the NAF code cleaned, then refused when wrong.
