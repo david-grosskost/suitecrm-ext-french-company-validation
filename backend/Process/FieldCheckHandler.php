@@ -13,7 +13,7 @@ use SuiteCrmExt\FrenchCompanyValidation\Siret;
 /**
  * Checks the SIRET or the NAF code while it is typed in the record view of an
  * account: SuiteCRM 8 calls this process for the asyncValidators of the field
- * (legacy/Extension/…/Vardefs/french-company-validation.php) and shows, under
+ * (backend/FieldDefinitions/AddFieldChecks) and shows, under
  * the field, the label of the error; the record cannot be saved meanwhile.
  * The same rules as the hook before_save (AccountCheck), which runs for every
  * other way in.

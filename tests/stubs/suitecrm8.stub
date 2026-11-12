@@ -58,3 +58,35 @@ namespace App\Process\Service {
         public function run(Process $process);
     }
 }
+
+namespace App\FieldDefinitions\Entity {
+    class FieldDefinition
+    {
+        public function getId(): string
+        {
+        }
+
+        /** @return array<mixed>|null */
+        public function getVardef(): ?array
+        {
+        }
+
+        /** @param array<mixed> $vardef */
+        public function setVardef(array $vardef): void
+        {
+        }
+    }
+}
+
+namespace App\FieldDefinitions\LegacyHandler {
+    use App\FieldDefinitions\Entity\FieldDefinition;
+
+    interface FieldDefinitionMapperInterface
+    {
+        public function getKey(): string;
+
+        public function getModule(): string;
+
+        public function map(FieldDefinition $definition): void;
+    }
+}

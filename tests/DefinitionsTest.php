@@ -17,39 +17,17 @@ final class DefinitionsTest extends TestCase
     private const array ERRORS = ['LBL_FCV_SIRET_FORMAT', 'LBL_FCV_SIRET_KEY', 'LBL_FCV_NAF_FORMAT'];
 
     /**
-     * The array a definition file fills, from what was there before.
-     *
-     * @param array<mixed> $dictionary
+     * The array a definition file fills.
      *
      * @return array<mixed>
      */
-    private static function load(string $file, string $variable, array $dictionary = []): array
+    private static function load(string $file, string $variable): array
     {
         $mod_strings = $hook_array = [];
         require self::LEGACY . '/' . $file;
-        $values = compact('dictionary', 'mod_strings', 'hook_array');
+        $values = compact('mod_strings', 'hook_array');
 
         return is_array($values[$variable] ?? null) ? $values[$variable] : [];
-    }
-
-    public function testTheChecksAreAddedToTheFieldsOfFrenchCompanyFields(): void
-    {
-        $before = ['Account' => ['fields' => ['fr_siret' => ['name' => 'fr_siret'], 'fr_naf_code' => ['name' => 'fr_naf_code']]]];
-
-        self::assertSame(
-            ['Account' => ['fields' => [
-                'fr_siret' => ['name' => 'fr_siret', 'asyncValidators' => ['french-company-validation' => ['key' => 'french-company-validation-check', 'params' => ['check' => 'siret']]]],
-                'fr_naf_code' => ['name' => 'fr_naf_code', 'asyncValidators' => ['french-company-validation' => ['key' => 'french-company-validation-check', 'params' => ['check' => 'naf']]]],
-            ]]],
-            self::load('Vardefs/french-company-validation.php', 'dictionary', $before),
-        );
-    }
-
-    public function testNothingIsAddedWithoutFrenchCompanyFields(): void
-    {
-        $before = ['Account' => ['fields' => ['name' => ['name' => 'name']]]];
-
-        self::assertSame($before, self::load('Vardefs/french-company-validation.php', 'dictionary', $before), 'pas de champ à moitié défini');
     }
 
     public function testTheHookRunsBeforeTheSave(): void

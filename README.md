@@ -19,8 +19,8 @@ NAF en majuscules avec son point (« 6201z » → « 62.01Z »).
 ## Comment c'est fait
 
 - **Sur la fiche, pendant la saisie** (`backend/Process/FieldCheckHandler.php`) : les deux champs
-  déclarent un contrôle asynchrone de SuiteCRM 8 (`asyncValidators`, dans
-  `legacy/Extension/modules/Accounts/Ext/Vardefs/`) ; SuiteCRM 8 appelle le processus
+  reçoivent un contrôle asynchrone de SuiteCRM 8 (`asyncValidators`, ajouté quand SuiteCRM 8
+  construit les définitions des champs : `backend/FieldDefinitions/`) ; SuiteCRM 8 appelle le processus
   `french-company-validation-check`, qui renvoie le message affiché sous le champ. Tant qu'il est là,
   la fiche ne s'enregistre pas.
 - **À chaque enregistrement, quelle que soit la voie** (import, API, workflow) : un logic hook
