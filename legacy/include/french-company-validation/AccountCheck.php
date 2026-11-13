@@ -40,7 +40,16 @@ final class AccountCheck
      */
     public static function errors(string $siret, string $naf): array
     {
-        return array_values(array_filter([Siret::error($siret), NafCode::error($naf)]));
+        // A loop, not array_filter: the scanner of the Module Loader refuses
+        // callbacks (array_filter, array_map…), for every package.
+        $errors = [];
+        foreach ([Siret::error($siret), NafCode::error($naf)] as $error) {
+            if ($error !== null) {
+                $errors[] = $error;
+            }
+        }
+
+        return $errors;
     }
 
     private static function write(\SugarBean $bean, string $field, string $value): void
