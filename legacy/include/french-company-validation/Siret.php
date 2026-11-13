@@ -44,7 +44,13 @@ final class Siret
     public static function hasValidKey(string $siret): bool
     {
         if (str_starts_with($siret, self::LA_POSTE)) {
-            return array_sum(array_map('intval', str_split($siret))) % 5 === 0;
+            // A loop, not array_map: refused by the scanner of the Module Loader.
+            $sum = 0;
+            foreach (str_split($siret) as $digit) {
+                $sum += (int) $digit;
+            }
+
+            return $sum % 5 === 0;
         }
 
         $sum = 0;
