@@ -10,9 +10,9 @@
         "david-grosskost/suitecrm-devkit": "^0.26"
     },
     "autoload-dev": {
-        "classmap": ["legacy/include/"],
         "psr-4": {
             "App\\Extension\\FrenchCompanyValidation\\backend\\": "backend/",
+            "SuiteCrmExt\\FrenchCompanyValidation\\": "legacy/include/french-company-validation/",
             "SuiteCrmExt\\FrenchCompanyValidation\\Tests\\": "tests/"
         }
     },
